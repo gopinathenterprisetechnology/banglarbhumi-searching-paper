@@ -6,7 +6,7 @@
     <title>Banglarbhumi Pro</title>
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 20px; background-color: #f4f6f9; text-align: center; color: #333; margin: 0; }
-        .app-container { background: white; padding: 30px 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); max-width: 360px; margin: 20px auto; border: 1px solid #eef2f5; box-sizing: border-box; }
+        .app-container { background: white; padding: 30px 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); max-width: 360px; margin: 20px auto; border: 1px solid #eef2f5; }
         img { max-width: 140px; height: auto; margin-bottom: 15px; }
         h2 { color: #1a73e8; font-size: 19px; margin-top: 0; margin-bottom: 5px; font-weight: 600; }
         p { font-size: 13px; color: #6c757d; margin-bottom: 20px; }
@@ -18,59 +18,53 @@
         .password-wrapper { position: relative; width: 100%; }
         .toggle-password { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #1a73e8; font-size: 12px; user-select: none; font-weight: bold; }
         
-        /* ড্যাশবোর্ড কার্ড স্টাইল */
-        .dashboard-card { background: #eef2f5; border-left: 5px solid #1a73e8; padding: 15px; border-radius: 8px; margin: 15px 0; text-align: left; box-sizing: border-box; }
-        .dashboard-card strong { font-size: 11px; color: #4a5568; text-transform: uppercase; display: block; margin-top: 5px; }
-        .dashboard-card span { font-family: monospace; font-size: 15px; color: #1a202c; font-weight: bold; display: block; margin-bottom: 8px; word-break: break-all; }
-        
-        .action-btn { width: 100%; color: white; border: none; padding: 14px; margin: 12px 0; border-radius: 8px; font-size: 15px; font-weight: bold; cursor: pointer; display: block; text-decoration: none; box-sizing: border-box; text-align: center; }
+        .action-btn { width: 100%; color: white; border: none; padding: 14px; margin: 12px 0; border-radius: 8px; font-size: 15px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; text-decoration: none; box-sizing: border-box; }
         .btn-blue { background-color: #1a73e8; }
-        .btn-purple { background-color: #8e44ad; }
         
-        .footer { margin-top: 40px; font-size: 11px; color: #a0aec0; line-height: 1.5; }
+        /* 📱 ফুল স্ক্রিন মডার্ন ইন-অ্যাপ ভিউ */
+        .embedded-view { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 99999; flex-direction: column; }
+        .top-nav-bar { background: #1a73e8; color: white; padding: 12px; display: flex; justify-content: space-between; align-items: center; font-weight: bold; }
+        .back-btn { background: #e74c3c; color: white; border: none; padding: 7px 15px; border-radius: 4px; font-weight: bold; cursor: pointer; }
+        .action-paper-btn { background: #8e44ad; color: white; border: none; padding: 7px 15px; border-radius: 4px; font-weight: bold; cursor: pointer; }
+        .webview-core { width: 100%; height: 100%; border: none; flex-grow: 1; }
     </style>
 </head>
 <body>
 
-    <div class="app-container">
+    <!-- কনফিগারেশন এরিয়া -->
+    <div class="app-container" id="mainDashboard">
         <img src="https://banglarbhumi.gov.in" alt="Banglarbhumi Logo">
-        <h2>Banglarbhumi Pro Control</h2>
-        <p>Land Records Automation Dashboard</p>
+        <h2>Banglarbhumi Pro</h2>
+        <p>Credential Safe-Storage & Automation Platform</p>
         
-        <!-- ইনপুট ফর্ম সেকশন -->
         <div class="input-group">
-            <label for="username">Portal Username</label>
+            <label>Portal Username</label>
             <input type="text" id="username" class="input-field" placeholder="Enter your username">
         </div>
 
         <div class="input-group">
-            <label for="password">Portal Password</label>
+            <label>Portal Password</label>
             <div class="password-wrapper">
                 <input type="password" id="password" class="input-field" placeholder="Enter your password">
                 <span class="toggle-password" id="eyeIcon">👁️ SHOW</span>
             </div>
         </div>
 
-        <!-- 📊 আইডি-পাসওয়ার্ড ডিসপ্লে কার্ড (ডাটা সেভ হলে নিচে দেখাবে) -->
-        <div id="dashboardCard" class="dashboard-card" style="display: none;">
-            <strong>Saved Username:</strong>
-            <span id="savedUserDisplay">-</span>
-            <strong>Saved Password:</strong>
-            <span id="savedPassDisplay">-</span>
-        </div>
-
-        <!-- মেইন গেটওয়ে বাটন (অরিজিনাল সাইট খোলার জন্য) -->
         <button id="launchBtn" class="action-btn btn-blue">
-            🔐 Save & Launch Official Portal
-        </button>
-
-        <!-- সার্চিং পেপার তৈরি করার বাটন -->
-        <button id="searchPaperBtn" class="action-btn btn-purple">
-            📄 Generate Searching Paper (One-Click)
+            🚀 Save & Launch In-App Workspace
         </button>
     </div>
 
-    <p class="footer">To prevent security blocking, credentials safely process through standalone browser layers.</p>
+    <!-- ⚡ ইন-অ্যাপ লাইভ ওয়ার্কস্পেস (পদ্ধতি ১ এর মূল ম্যাজিক) -->
+    <div id="inlineBrowser" class="embedded-view">
+        <div class="top-nav-bar">
+            <button class="back-btn" id="exitViewBtn">❌ Exit</button>
+            <span style="font-size: 13px;">Banglarbhumi Live Session</span>
+            <button class="action-paper-btn" id="generateReportBtn">📄 Generate Paper</button>
+        </div>
+        <!-- এম্বেডেড সেশন ট্র্যাকিং এলিমেন্ট -->
+        <embed id="portalEngine" class="webview-core" src=""></embed>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -78,26 +72,15 @@
             const passField = document.getElementById('password');
             const eyeIcon = document.getElementById('eyeIcon');
             const launchBtn = document.getElementById('launchBtn');
-            const dashboardCard = document.getElementById('dashboardCard');
-            const savedUserDisplay = document.getElementById('savedUserDisplay');
-            const savedPassDisplay = document.getElementById('savedPassDisplay');
+            const inlineBrowser = document.getElementById('inlineBrowser');
+            const portalEngine = document.getElementById('portalEngine');
+            const exitViewBtn = document.getElementById('exitViewBtn');
 
-            // ১. অ্যাপ ওপেন হওয়ার সময় আগে থেকে সেভ থাকা ডাটা চেক করা
-            function loadSavedData() {
-                const savedUser = localStorage.getItem('bb_user');
-                const savedPass = localStorage.getItem('bb_pass');
-
-                if (savedUser && savedPass) {
-                    userField.value = savedUser;
-                    passField.value = savedPass;
-                    savedUserDisplay.innerText = savedUser;
-                    savedPassDisplay.innerText = savedPass;
-                    dashboardCard.style.display = 'block';
-                }
+            if(localStorage.getItem('bb_user')) {
+                userField.value = localStorage.getItem('bb_user');
+                passField.value = localStorage.getItem('bb_pass');
             }
-            loadSavedData();
 
-            // ২. পাসওয়ার্ড SHOW/HIDE লজিক
             eyeIcon.addEventListener('click', () => {
                 if (passField.type === 'password') {
                     passField.type = 'text';
@@ -108,25 +91,26 @@
                 }
             });
 
-            // ৩. মেইন সুইচের ক্লিক লজিক (যা ১০০% কাজ করবে)
             launchBtn.addEventListener('click', () => {
                 const user = userField.value.trim();
                 const pass = passField.value.trim();
 
                 if(!user || !pass) {
-                    alert('Authentication failed: Please enter both username and password.');
+                    alert('Authentication failed: Credentials cannot be empty.');
                     return;
                 }
 
-                // লোকাল মেমোরিতে ডাটা সেভ করা হচ্ছে
                 localStorage.setItem('bb_user', user);
                 localStorage.setItem('bb_pass', pass);
-                
-                // ডিসপ্লে কার্ড আপডেট করা
-                loadSavedData();
 
-                // 🚀 সিকিউরিটি বাইপাস করে সরাসরি ক্রোম বা অন্য ব্রাউজারে খোলার সবচেয়ে শক্তিশালী জাভাস্ক্রিপ্ট কমান্ড
-                window.location.assign("https://banglarbhumi.gov.in");
+                // সরকারি X-Frame পলিসি ব্লক এড়াতে সরাসরি EMBED স্ট্রিমিং প্রোটোকল ব্যবহার
+                portalEngine.src = "https://banglarbhumi.gov.in";
+                inlineBrowser.style.display = "flex";
+            });
+
+            exitViewBtn.addEventListener('click', () => {
+                inlineBrowser.style.display = "none";
+                portalEngine.src = "";
             });
         });
     </script>
