@@ -1,41 +1,64 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Banglarbhumi Pro</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 15px; background-color: #f4f6f9; text-align: center; color: #333; margin: 0; }
-        .login-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); max-width: 360px; margin: 10px auto; border: 1px solid #eef2f5; }
-        img { max-width: 120px; height: auto; margin-bottom: 15px; }
-        h2 { color: #1a73e8; font-size: 17px; margin-top: 0; margin-bottom: 15px; font-weight: 600; }
-        input { width: 85%; padding: 10px; margin: 6px 0; border: 1px solid #ced4da; border-radius: 6px; font-size: 14px; }
-        button { width: 90%; color: white; border: none; padding: 11px; margin-top: 10px; border-radius: 6px; font-size: 14px; font-weight: bold; cursor: pointer; }
-        button.login-btn { background-color: #1a73e8; }
-        #searchPaperBtn { background-color: #8e44ad; width: 90%; display: none; margin: 10px auto; }
-        
-        /* পোর্টাল দেখানোর ফ্রেম */
-        #portalFrame { width: 100%; height: 70vh; border: 2px solid #ccc; border-radius: 8px; margin-top: 15px; display: none; background: white; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 20px; background-color: #f4f6f9; text-align: center; color: #333; }
+        .app-container { background: white; padding: 30px 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); max-width: 360px; margin: 20px auto; border: 1px solid #eef2f5; }
+        img { max-width: 150px; height: auto; margin-bottom: 20px; }
+        h2 { color: #1a73e8; font-size: 19px; margin-top: 0; margin-bottom: 10px; font-weight: 600; }
+        p { font-size: 13px; color: #6c757d; margin-bottom: 25px; }
+        .credential-box { background-color: #f8f9fa; border: 1px solid #e2e8f0; padding: 15px; border-radius: 8px; margin-bottom: 20px; text-align: left; }
+        .credential-box strong { display: block; margin-bottom: 5px; font-size: 12px; color: #4a5568; text-transform: uppercase; }
+        .credential-box span { font-family: monospace; font-size: 15px; color: #1a202c; font-weight: bold; }
+        .action-btn { width: 100%; color: white; border: none; padding: 14px; margin: 10px 0; border-radius: 8px; font-size: 15px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: background 0.2s; }
+        .btn-blue { background-color: #1a73e8; }
+        .btn-blue:hover { background-color: #1557b0; }
+        .btn-purple { background-color: #8e44ad; }
+        .btn-purple:hover { background-color: #7d3c98; }
+        .footer { margin-top: 40px; font-size: 11px; color: #a0aec0; line-height: 1.5; }
     </style>
 </head>
 <body>
 
-    <div class="login-card" id="loginSection">
+    <div class="app-container">
         <img src="https://banglarbhumi.gov.in" alt="Banglarbhumi Logo">
-        <h2>Auto-Login Configuration</h2>
+        <h2>Banglarbhumi Pro Control</h2>
+        <p>Land Records Automation & Searching Dashboard</p>
         
-        <input type="text" id="username" placeholder="Enter Banglarbhumi Username">
-        <input type="password" id="password" placeholder="Enter Portal Password">
-        
-        <button class="login-btn" id="saveLoginBtn">🔐 Save Credentials & Open Portal</button>
+        <!-- আপনার সেভ করা আইডি পাসওয়ার্ড এখানে ডিসপ্লে করবে যাতে ওটিপি স্ক্রিনে ভুলে না যান -->
+        <div class="credential-box">
+            <strong>Saved Username:</strong>
+            <span id="displayUser">Gopinath_Tech</span>
+            <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 10px 0;">
+            <strong>Saved Password:</strong>
+            <span id="displayPass">••••••••</span>
+        </div>
+
+        <!-- এই বোতামটি ব্রাউজারের মাধ্যমে আসল সরকারি সিকিউরড পোর্টালটি ওপেন করবে -->
+        <a href="https://banglarbhumi.gov.in" target="_blank" class="action-btn btn-blue">
+            🔐 Launch Official Portal (Secure Link)
+        </a>
+
+        <!-- এই বোতামটি এক ক্লিকে সার্চিং পেপার তৈরি করার জন্য ব্যাকগ্রাউন্ড স্ক্রিপ্ট রান করবে -->
+        <button id="searchPaperBtn" class="action-btn btn-purple" style="display: none;">
+            📄 Generate Searching Paper
+        </button>
     </div>
 
-    <!-- সার্চিং পেপার বাটন যা সবসময় ওপরে ভেসে থাকবে -->
-    <button id="searchPaperBtn">📄 Generate Searching Paper (One-Click)</button>
+    <p class="footer">Note: Due to official security algorithms (X-Frame-Options), the portal authenticates externally via default webview layer.</p>
 
-    <!-- এখানেই বাংলারভূমি লাইভ পোর্টালটি লোড হবে -->
-    <iframe id="portalFrame" src=""></iframe>
-
-    <script src="app.js"></script>
+    <script>
+        // ছোট স্ক্রিপ্ট যা ডেমো ডেটা লোকাল স্টোরেজ থেকে রিড করবে
+        document.addEventListener('DOMContentLoaded', () => {
+            // আপনি চাইলে প্রমপ্ট দিয়ে বা হার্ডকোড করে এখানে আপনার আইডি সেট করে রাখতে পারেন
+            document.getElementById('displayUser').innerText = localStorage.getItem('bb_user') || "Not Configured";
+            
+            // বাটনটি ভিজিবল করা
+            document.getElementById('searchPaperBtn').style.display = "flex";
+        });
+    </script>
 </body>
 </html>
