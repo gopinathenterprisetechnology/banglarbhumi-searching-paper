@@ -1,0 +1,10 @@
+{
+  "manifest_version": 3,
+  "name": "Banglarbhumi Searching Paper Helper",
+  "version": "1.1",
+  "description": "বাংলারভূমি পেজের তথ্যকে এক ক্লিকে সার্চিং পেপার স্টাইলে রূপান্তর করুন।",
+  "permissions": ["activeTab", "scripting"],
+  "action": {
+    "default_popup": "popup.html"
+  }
+}
