@@ -5,19 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Banglarbhumi Pro</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 20px; background-color: #f4f6f9; text-align: center; color: #333; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 20px; background-color: #f4f6f9; text-align: center; color: #333; margin: 0; }
         .app-container { background: white; padding: 30px 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); max-width: 360px; margin: 20px auto; border: 1px solid #eef2f5; }
-        img { max-width: 150px; height: auto; margin-bottom: 20px; }
-        h2 { color: #1a73e8; font-size: 19px; margin-top: 0; margin-bottom: 10px; font-weight: 600; }
-        p { font-size: 13px; color: #6c757d; margin-bottom: 25px; }
-        .credential-box { background-color: #f8f9fa; border: 1px solid #e2e8f0; padding: 15px; border-radius: 8px; margin-bottom: 20px; text-align: left; }
-        .credential-box strong { display: block; margin-bottom: 5px; font-size: 12px; color: #4a5568; text-transform: uppercase; }
-        .credential-box span { font-family: monospace; font-size: 15px; color: #1a202c; font-weight: bold; }
-        .action-btn { width: 100%; color: white; border: none; padding: 14px; margin: 10px 0; border-radius: 8px; font-size: 15px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: background 0.2s; }
+        img { max-width: 140px; height: auto; margin-bottom: 15px; }
+        h2 { color: #1a73e8; font-size: 19px; margin-top: 0; margin-bottom: 5px; font-weight: 600; }
+        p { font-size: 13px; color: #6c757d; margin-bottom: 20px; }
+        
+        /* ইনপুট ফিল্ড ও পাসওয়ার্ড বক্সের ডিজাইন */
+        .input-group { width: 100%; margin: 12px 0; text-align: left; box-sizing: border-box; }
+        .input-group label { display: block; font-size: 12px; color: #4a5568; font-weight: bold; margin-bottom: 5px; text-transform: uppercase; }
+        .input-field { width: 100%; padding: 11px; border: 1px solid #ced4da; border-radius: 6px; font-size: 14px; box-sizing: border-box; transition: border-color 0.2s; }
+        .input-field:focus { border-color: #1a73e8; outline: none; }
+        
+        /* পাসওয়ার্ড ভিজিবল করার কন্টেইনার */
+        .password-wrapper { position: relative; width: 100%; }
+        .toggle-password { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #1a73e8; font-size: 12px; user-select: none; font-weight: bold; }
+        
+        /* অ্যাকশন বাটনের ডিজাইন */
+        .action-btn { width: 100%; color: white; border: none; padding: 14px; margin: 12px 0; border-radius: 8px; font-size: 15px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; text-decoration: none; box-sizing: border-box; transition: background 0.2s; }
         .btn-blue { background-color: #1a73e8; }
         .btn-blue:hover { background-color: #1557b0; }
         .btn-purple { background-color: #8e44ad; }
         .btn-purple:hover { background-color: #7d3c98; }
+        
         .footer { margin-top: 40px; font-size: 11px; color: #a0aec0; line-height: 1.5; }
     </style>
 </head>
@@ -26,38 +36,75 @@
     <div class="app-container">
         <img src="https://banglarbhumi.gov.in" alt="Banglarbhumi Logo">
         <h2>Banglarbhumi Pro Control</h2>
-        <p>Land Records Automation & Searching Dashboard</p>
+        <p>Land Records Automation Dashboard</p>
         
-        <!-- আপনার সেভ করা আইডি পাসওয়ার্ড এখানে ডিসপ্লে করবে যাতে ওটিপি স্ক্রিনে ভুলে না যান -->
-        <div class="credential-box">
-            <strong>Saved Username:</strong>
-            <span id="displayUser">Gopinath_Tech</span>
-            <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 10px 0;">
-            <strong>Saved Password:</strong>
-            <span id="displayPass">••••••••</span>
+        <!-- ইউজারনেম ইনপুট বক্স -->
+        <div class="input-group">
+            <label for="username">Portal Username</label>
+            <input type="text" id="username" class="input-field" placeholder="Enter your username">
         </div>
 
-        <!-- এই বোতামটি ব্রাউজারের মাধ্যমে আসল সরকারি সিকিউরড পোর্টালটি ওপেন করবে -->
-        <a href="https://banglarbhumi.gov.in" target="_blank" class="action-btn btn-blue">
-            🔐 Launch Official Portal (Secure Link)
+        <!-- পাসওয়ার্ড ইনপুট বক্স ও শো/হাইড অপশন -->
+        <div class="input-group">
+            <label for="password">Portal Password</label>
+            <div class="password-wrapper">
+                <input type="password" id="password" class="input-field" placeholder="Enter your password">
+                <span class="toggle-password" id="eyeIcon">👁️ SHOW</span>
+            </div>
+        </div>
+
+        <!-- পোর্টাল ওপেন করার আসল সিকিউরড মেকানিজম বাটন -->
+        <a href="https://banglarbhumi.gov.in" target="_system" id="launchBtn" class="action-btn btn-blue">
+            🔐 Save & Launch Official Portal
         </a>
 
-        <!-- এই বোতামটি এক ক্লিকে সার্চিং পেপার তৈরি করার জন্য ব্যাকগ্রাউন্ড স্ক্রিপ্ট রান করবে -->
-        <button id="searchPaperBtn" class="action-btn btn-purple" style="display: none;">
-            📄 Generate Searching Paper
+        <!-- সার্চিং পেপার তৈরি করার বাটন -->
+        <button id="searchPaperBtn" class="action-btn btn-purple">
+            📄 Generate Searching Paper (One-Click)
         </button>
     </div>
 
-    <p class="footer">Note: Due to official security algorithms (X-Frame-Options), the portal authenticates externally via default webview layer.</p>
+    <p class="footer">To prevent security blocking, credentials safely authenticate via active browser layer.</p>
 
     <script>
-        // ছোট স্ক্রিপ্ট যা ডেমো ডেটা লোকাল স্টোরেজ থেকে রিড করবে
         document.addEventListener('DOMContentLoaded', () => {
-            // আপনি চাইলে প্রমপ্ট দিয়ে বা হার্ডকোড করে এখানে আপনার আইডি সেট করে রাখতে পারেন
-            document.getElementById('displayUser').innerText = localStorage.getItem('bb_user') || "Not Configured";
-            
-            // বাটনটি ভিজিবল করা
-            document.getElementById('searchPaperBtn').style.display = "flex";
+            const userField = document.getElementById('username');
+            const passField = document.getElementById('password');
+            const eyeIcon = document.getElementById('eyeIcon');
+            const launchBtn = document.getElementById('launchBtn');
+
+            // ১. আগে থেকে সেভ থাকা আইডি-পাসওয়ার্ড বক্সে অটো-লোড করা
+            if(localStorage.getItem('bb_user')) {
+                userField.value = localStorage.getItem('bb_user');
+                passField.value = localStorage.getItem('bb_pass');
+            }
+
+            // ২. পাসওয়ার্ড দৃশ্যমান (Visible) বা SHOW/HIDE করার লজিক
+            eyeIcon.addEventListener('click', () => {
+                if (passField.type === 'password') {
+                    passField.type = 'text';
+                    eyeIcon.innerText = '🔒 HIDE';
+                } else {
+                    passField.type = 'password';
+                    eyeIcon.innerText = '👁️ SHOW';
+                }
+            });
+
+            // ৩. পোর্টালে যাওয়ার সুইচের লজিক (ক্লিক করলে প্রথমে সেভ হবে, তারপর লিঙ্ক ওপেন হবে)
+            launchBtn.addEventListener('click', (event) => {
+                const user = userField.value.trim();
+                const pass = passField.value.trim();
+
+                if(!user || !pass) {
+                    event.preventDefault(); // যদি ফাকা থাকে তবে পোর্টাল খুলবে না
+                    alert('Authentication failed: Please enter both username and password.');
+                    return;
+                }
+
+                // ব্রাউজার মেমোরিতে ডাটা নিরাপদে সেভ করা হচ্ছে
+                localStorage.setItem('bb_user', user);
+                localStorage.setItem('bb_pass', pass);
+            });
         });
     </script>
 </body>
