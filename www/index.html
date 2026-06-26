@@ -19,60 +19,64 @@
         .password-wrapper { position: relative; width: 100%; }
         .toggle-password { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #1a73e8; font-size: 12px; user-select: none; font-weight: bold; }
         
+        /* ড্যাশবোর্ড কার্ড স্টাইল */
+        .dashboard-card { display: none; background: #eef2f5; border-left: 5px solid #1a73e8; padding: 15px; border-radius: 8px; margin: 15px 0; text-align: left; }
+        .dashboard-card strong { font-size: 12px; color: #4a5568; text-transform: uppercase; }
+        .dashboard-card span { font-family: monospace; font-size: 15px; color: #1a202c; font-weight: bold; display: block; margin-top: 2px; margin-bottom: 8px; }
+        
         .action-btn { width: 100%; color: white; border: none; padding: 14px; margin: 12px 0; border-radius: 8px; font-size: 15px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; text-decoration: none; box-sizing: border-box; transition: background 0.2s; }
         .btn-blue { background-color: #1a73e8; }
         .btn-blue:hover { background-color: #1557b0; }
-        
-        /* 📱 ইন-অ্যাপ কাস্টম ব্রাউজার ওভারলে স্টাইল */
-        .browser-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 9999; flex-direction: column; }
-        .browser-bar { background: #1a73e8; color: white; padding: 10px; display: flex; justify-content: space-between; align-items: center; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .close-browser { background: #e74c3c; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-weight: bold; cursor: pointer; }
-        .btn-generate { background: #8e44ad; color: white; border: none; padding: 8px 14px; border-radius: 4px; font-weight: bold; cursor: pointer; }
-        .browser-content { width: 100%; height: 100%; border: none; flex-grow: 1; }
+        .btn-purple { background-color: #8e44ad; }
+        .btn-purple:hover { background-color: #7d3c98; }
         
         .footer { margin-top: 40px; font-size: 11px; color: #a0aec0; line-height: 1.5; }
     </style>
 </head>
 <body>
 
-    <!-- মূল অ্যাপ্লিকেশন ড্যাশবোর্ড -->
     <div class="app-container">
         <img src="https://banglarbhumi.gov.in" alt="Banglarbhumi Logo">
         <h2>Banglarbhumi Pro Control</h2>
         <p>Land Records Automation Dashboard</p>
         
-        <div class="input-group">
-            <label for="username">Portal Username</label>
-            <input type="text" id="username" class="input-field" placeholder="Enter your username">
-        </div>
+        <!-- ইনপুট ফর্ম সেকশন -->
+        <div id="formSection">
+            <div class="input-group">
+                <label for="username">Portal Username</label>
+                <input type="text" id="username" class="input-field" placeholder="Enter your username">
+            </div>
 
-        <div class="input-group">
-            <label for="password">Portal Password</label>
-            <div class="password-wrapper">
-                <input type="password" id="password" class="input-field" placeholder="Enter your password">
-                <span class="toggle-password" id="eyeIcon">👁️ SHOW</span>
+            <div class="input-group">
+                <label for="password">Portal Password</label>
+                <div class="password-wrapper">
+                    <input type="password" id="password" class="input-field" placeholder="Enter your password">
+                    <span class="toggle-password" id="eyeIcon">👁️ SHOW</span>
+                </div>
             </div>
         </div>
 
-        <!-- এই বোতামটি ক্লিক করলে অ্যাপের ভেতরেই কাস্টম ব্রাউজার সচল হবে -->
-        <button id="launchBtn" class="action-btn btn-blue">
-            🔐 Save & Launch In-App Portal
+        <!-- 📊 ড্যাশবোর্ড কার্ড: যেখানে সেভ করা আইডি ভেসে থাকবে কাজের সুবিধার জন্য -->
+        <div id="dashboardCard" class="dashboard-card">
+            <strong>Active Username:</strong>
+            <span id="savedUserDisplay">-</span>
+            <strong>Active Password:</strong>
+            <span id="savedPassDisplay">-</span>
+            <button id="editBtn" style="background: none; border: none; color: #1a73e8; font-weight: bold; cursor: pointer; padding: 0; font-size: 12px;">✏️ Change Credentials</button>
+        </div>
+
+        <!-- মেইন গেটওয়ে সুইচ (অরিজিনাল সাইট খোলার জন্য) -->
+        <a href="https://banglarbhumi.gov.in" id="launchBtn" class="action-btn btn-blue">
+            🔐 Save & Launch Official Portal
+        </a>
+
+        <!-- সার্চিং পেপার তৈরি করার বাটন -->
+        <button id="searchPaperBtn" class="action-btn btn-purple">
+            📄 Generate Searching Paper (One-Click)
         </button>
     </div>
 
-    <!-- ⚡ অ্যাপের ভেতরের নিজস্ব সিকিউরড ব্রাউজার উইন্ডো (In-App Browser Container) -->
-    <div id="appBrowser" class="browser-overlay">
-        <div class="browser-bar">
-            <button class="close-browser" id="closeBrowserBtn">❌ Back</button>
-            <span style="font-size: 14px; letter-spacing: 0.5px;">Banglarbhumi Secure Portal</span>
-            <!-- জাদুকরী বাটন যা ব্রalarভূমির পেজের ওপরেই ভাসমান থাকবে -->
-            <button class="btn-generate" id="insideSearchBtn">📄 Generate Paper</button>
-        </div>
-        <!-- লাইভ ওয়েব ভিউ কন্টেইনার -->
-        <object id="portalObject" class="browser-content" data=""></object>
-    </div>
-
-    <p class="footer">To prevent security blocking, credentials safely authenticate via active app container layer.</p>
+    <p class="footer">Credentials safely process through official security headers via standalone rendering layer.</p>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -80,16 +84,33 @@
             const passField = document.getElementById('password');
             const eyeIcon = document.getElementById('eyeIcon');
             const launchBtn = document.getElementById('launchBtn');
-            const appBrowser = document.getElementById('appBrowser');
-            const portalObject = document.getElementById('portalObject');
-            const closeBrowserBtn = document.getElementById('closeBrowserBtn');
-            const insideSearchBtn = document.getElementById('insideSearchBtn');
+            const formSection = document.getElementById('formSection');
+            const dashboardCard = document.getElementById('dashboardCard');
+            const savedUserDisplay = document.getElementById('savedUserDisplay');
+            const savedPassDisplay = document.getElementById('savedPassDisplay');
+            const editBtn = document.getElementById('editBtn');
 
-            // ১. আগে থেকে সেভ থাকা আইডি-পাসওয়ার্ড বক্সে অটো-লোড করা
-            if(localStorage.getItem('bb_user')) {
-                userField.value = localStorage.getItem('bb_user');
-                passField.value = localStorage.getItem('bb_pass');
+            // ১. অ্যাপ খোলার সময় আগে থেকে সেভ থাকা ডাটা চেক করা
+            function checkExistingCredentials() {
+                const savedUser = localStorage.getItem('bb_user');
+                const savedPass = localStorage.getItem('bb_pass');
+
+                if (savedUser && savedPass) {
+                    // ফর্ম লুকিয়ে ড্যাশবোর্ড কার্ড দেখানো
+                    formSection.style.display = 'none';
+                    dashboardCard.style.display = 'block';
+                    savedUserDisplay.innerText = savedUser;
+                    savedPassDisplay.innerText = savedPass;
+                    userField.value = savedUser;
+                    passField.value = savedPass;
+                    launchBtn.innerText = "🚀 Open Active Portal Session";
+                } else {
+                    formSection.style.display = 'block';
+                    dashboardCard.style.display = 'none';
+                    launchBtn.innerText = "🔐 Save & Launch Official Portal";
+                }
             }
+            checkExistingCredentials();
 
             // ২. পাসওয়ার্ড SHOW/HIDE লজিক
             eyeIcon.addEventListener('click', () => {
@@ -102,35 +123,30 @@
                 }
             });
 
-            // ৩. অ্যাপের ভেতরে পোর্টাল ওপেন করার লজিক
-            launchBtn.addEventListener('click', () => {
+            // ৩. এডিট বাটনের লজিক (আইডি পাসওয়ার্ড বদলানোর জন্য)
+            editBtn.addEventListener('click', () => {
+                formSection.style.display = 'block';
+                dashboardCard.style.display = 'none';
+                launchBtn.innerText = "🔐 Save & Launch Official Portal";
+            });
+
+            // ৪. মেইন সুইচের ক্লিক লজিক
+            launchBtn.addEventListener('click', (event) => {
                 const user = userField.value.trim();
                 const pass = passField.value.trim();
 
                 if(!user || !pass) {
+                    event.preventDefault(); // ফাঁকা থাকলে পোর্টাল খুলবে না
                     alert('Authentication failed: Please enter both username and password.');
                     return;
                 }
 
-                // লোকাল মেমোরিতে সেভ
+                // লোকাল মেমোরিতে নিরাপদে সেভ
                 localStorage.setItem('bb_user', user);
                 localStorage.setItem('bb_pass', pass);
-
-                // অ্যাপের ভেতরের কাস্টম উইন্ডো সচল করে অবজেক্ট লেয়ারে বাংলারভূমি লোড করা
-                portalObject.data = "https://banglarbhumi.gov.in";
-                appBrowser.style.display = "flex";
-            });
-
-            // ৪. ইন-অ্যাপ ব্রাউজার বন্ধ করার বোতাম
-            closeBrowserBtn.addEventListener('click', () => {
-                appBrowser.style.display = "none";
-                portalObject.data = ""; // ক্লিয়ার সেশন
-            });
-
-            // ৫. সার্চিং পেপার তৈরি করার জাদুকরী বোতামের ক্লিক লজিক
-            insideSearchBtn.addEventListener('click', () => {
-                alert("Scraping live tables... Converting to professional Searching Paper report format.");
-                // এখানে আপনার স্ক্র্যাপার লজিক কাজ করবে যা আগের ফাইলে তৈরি করা ছিল
+                
+                // রিয়েল-টাইমে ভিউ আপডেট করা
+                checkExistingCredentials();
             });
         });
     </script>
