@@ -5,7 +5,7 @@
     <author email="your@email.com">Your Name</author>
     
     <!-- ⚠️ এখানে src= এর ভেতরে আপনার GitHub Pages থেকে পাওয়া লাইভ লিঙ্কটি বসিয়ে দিন -->
-    <content src="https://github.io" />
+    <content src="https://gopinathenterprisetechnology.github.io/banglarbhumi-searching-paper/index.html" />
     
     <access origin="*" />
     <allow-intent href="http://*/*" />
