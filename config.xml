@@ -4,7 +4,8 @@
     <description>An advanced automation and data-scraping tool engineered for the West Bengal Land portal. Eliminates session timeouts via background keep-alive algorithm and features integrated credentials secure-storage with a client-side OCR CAPTCHA solver.</description>
     <author email="dev@gopinathtech.com" href="https://github.io">Banglarbhumi Pro Team</author>
     
-    <content src="https://github.io/banglarbhumi-searching-paper/www/index.html" />
+    <!-- সরাসরি সঠিক হোম স্ক্রিনের ইউআরএল সেট করা হলো -->
+    <content src="https://github.io/banglarbhumi-searching-paper/www/home.html" />
     
     <access origin="*" />
     <allow-intent href="http://*/*" />
