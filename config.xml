@@ -3,10 +3,14 @@
     <name>Banglarbhumi Pro</name>
     <description>An advanced, high-utility automation and data-scraping tool specifically engineered for the West Bengal Land and Land Reforms (Banglarbhumi) portal. This application streamlines the 'Know Your Property' retrieval workflow by eliminating frequent, abrupt session timeouts through an intelligent background session-keepalive algorithm. It features integrated credential secure-storage for seamless single-click auto-fill during authentication and transforms raw ledger (Khatian) and plot details into professional, print-ready 'Searching Paper' reports embedded with localized plot maps.</description>
     <author email="your@email.com">Your Name</author>
-    <content src="index.html" />
+    
+    <!-- ⚠️ এখানে src= এর ভেতরে আপনার GitHub Pages থেকে পাওয়া লাইভ লিঙ্কটি বসিয়ে দিন -->
+    <content src="https://github.io" />
+    
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-navigation href="https://banglarbhumi.gov.in*" />
+    <allow-navigation href="https://*.github.io/*" />
     <preference name="KeepRunning" value="true" />
 </widget>
