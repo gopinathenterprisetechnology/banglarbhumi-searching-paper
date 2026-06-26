@@ -1,26 +1,17 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<widget xmlns   = "http://w3.org"
-        xmlns:gap = "http://phonegap.com"
-        id        = "com.gopinath.banglarbhumipro"
-        version   = "1.0.0">
-        
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.gopinath.banglarbhumipro" version="1.0.0" xmlns="http://w3.org" xmlns:cdv="http://apache.org">
     <name>Banglarbhumi Pro</name>
-    
     <description>An advanced automation and data-scraping tool engineered for the West Bengal Land portal. Eliminates session timeouts via background keep-alive algorithm and features integrated credentials secure-storage with a client-side OCR CAPTCHA solver.</description>
-    
     <author email="dev@gopinathtech.com" href="https://github.io">Banglarbhumi Pro Team</author>
     
-    <!-- www ফোল্ডারের ভেতরের লিঙ্ক এবং আপনার লাইভ গিটহাব পেজেস লিঙ্ক -->
     <content src="https://github.io/banglarbhumi-searching-paper/www/index.html" />
     
-    <!-- Whitelist configurations to allow network access smoothly -->
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-navigation href="https://banglarbhumi.gov.in*" />
     <allow-navigation href="https://*.github.io/*" />
     
-    <!-- Target Android Preference Controls -->
     <preference name="KeepRunning" value="true" />
     <preference name="InAppBrowserStorageEnabled" value="true" />
     <preference name="clearcache" value="no" />
